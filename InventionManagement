@@ -1,0 +1,119 @@
+﻿
+
+Create table Award(Award_Id varchar(10), Award_Name varchar (20), Organization varchar(10), Prize_Money numeric (11,2), primary key(Award_id) );
+Create table Inventor(Inventor_Id varchar (10),  Fname varchar (25), Lname varchar (25),  Nationality varchar(15), Date_Of_Birth date, primary key(Inventor_Id));
+create table Field(Field_Id varchar(5), Field_Name varchar(15), primary key(Field_Id));
+create table Invention(Invention_Id varchar(5), Invention_Name varchar(20),Invention_year numeric(4,0),field_id varchar(10), primary key(Invention_Id), foreign key(field_id) references field);
+create table inventorPhoneNo(Inventor_id varchar(10),Phone_No numeric(10,0), foreign key(Inventor_id) references Inventor);
+create table patent(Patent_id varchar(5), patent_Name varchar(20), Patent_organisation varchar(20), primary key(Patent_id));
+create table Invent(Invention_Id varchar(5) not null,Inventor_Id varchar(10) not null,foreign key(Invention_Id) references Invention,primary key (Invention_Id,Inventor_Id),foreign key(Inventor_Id) references Inventor);
+create table given (Invention_Id varchar(5), Inventor_Id varchar(10),Patent_id varchar(5),foreign key(Invention_Id,Inventor_Id) references Invent,foreign key(patent_id) references patent);
+create table Acheived(Invention_Id varchar(5), Inventor_Id varchar(10),Award_Id varchar(10),Awarded_By varchar(20),foreign key(Invention_Id,Inventor_Id) references Invent,foreign key(Award_Id) references Award);
+
+
+Alter table acheived add column award_date date;
+Alter table given add column patent_date date;
+
+insert into field values('f1','Physics');
+insert into field values('f2','Maths');
+Insert into field values('f3', 'Biology');
+insert into field values('f4','computers');
+Insert into field values('f5', 'Chemistry');
+
+Insert into invention values('ID1', 'Motor', 1999,'f1');
+Insert into invention values('ID2', 'Algebra', 1860,'f2');
+Insert into invention values('ID3','Flower pollination', 1895,'f3');
+Insert into invention values('ID4', 'Quantum Theory', 1870,'f1');
+Insert into invention values('ID5', 'Chemical Bonding', 1990,'f5');
+Insert into invention values('ID6', 'R.B.C', 1850,'f3');
+Insert into invention values('ID7', 'Computer', 1810,'f4');
+Insert into invention values('ID8', 'Ac', 1903,'f1');
+
+Insert into inventor values('IR1', 'Thomas', 'Miller', 'Russia', '17dec1960');
+Insert into inventor values('IR2', 'Baskara', 'Charya', 'India', '16jul1800');
+Insert into inventor values('IR3', 'Benstokes', 'Alfred', 'Chinerse', '21aug1820');
+Insert into inventor values('IR4', 'Cris', 'Evans', 'Russian', '19aug1840');
+Insert into inventor values('IR5', 'Camy', 'John', 'American', '19dec1910');
+Insert into inventor values('IR6', 'Charles', 'Willey', 'Russian', '9may1800');
+Insert into inventor values('IR7', 'Bruce Lee', 'Edison', 'USA', '20may1810');
+Insert into inventor values('IR8', 'Venkatesh', 'Pavan', 'Japan', '9nov1904');
+
+Insert into inventorPhoneno values('IR1', 9131618797);
+Insert into inventorPhoneno values('IR1', 8180543210);
+Insert into inventorPhoneno values('IR2', 8654321234);
+Insert into inventorPhoneno values('IR2', 9790002742);
+Insert into inventorPhoneno values('IR3', 9552201199);
+Insert into inventorPhoneno values('IR4', 7896543679);
+Insert into inventorPhoneno values('IR5', 7689590435);
+Insert into inventorPhoneno values('IR5', 9875468905);
+Insert into inventorPhoneno values('IR6', 9023457890);
+
+
+Insert into invent values('ID1', 'IR1');
+Insert into invent values('ID2', 'IR2');
+Insert into invent values('ID3', 'IR3');
+Insert into invent values('ID4', 'IR1');
+Insert into invent values('ID5', 'IR5');
+Insert into invent values('ID6', 'IR6');
+Insert into invent values('ID7', 'IR7');
+Insert into invent values('ID7', 'IR8');
+Insert into invent values('ID8', 'IR7');
+Insert into invent values('ID8', 'IR8');
+
+
+insert into patent values('P1', 'Thomas', 'Suva');
+insert into patent values('P2', 'Chani', 'Jane');
+insert into patent values('P3', 'Gayle', 'Operan');
+insert into patent values('P4', 'Chase', 'Suva');
+
+insert into award values('A101', 'Bailey', 'Ussr' , 100000);
+insert into award values('A102', 'Ashoka', 'Ninner', 150000);
+insert into award values('A103', 'Noble', 'Noble', 200000);
+insert into award values('A104', 'Acharya', 'Kane' , 700000);
+insert into award values('A105', 'Carry', 'Usa' , 5000000);
+insert into award values('A106', 'Oscar', 'India' , 400000);
+
+Insert into given values('ID1', 'IR1', 'P1' , '21jan1991');
+Insert into given values('ID2', 'IR2', 'P2', '7jul1860');
+Insert into given values('ID3', 'IR3', 'P3', '19dec1895');
+Insert into given values('ID6', 'IR6', 'P1', '21jan1991');
+
+insert into acheived values('ID1', 'IR1', 'A101', 'President of Russia', '25jun2002');
+insert into acheived values('ID2', 'IR2', 'A102', 'East India Company', '15jun1864');
+insert into acheived values('ID4', 'IR1', 'A103', 'Charles', '3may1900');
+insert into acheived values('ID4', 'IR1', 'A104', 'Krish', '25jun1874');
+insert into acheived values('ID5', 'IR5', 'A103', 'Obama', '25jun1992');
+insert into acheived values('ID6', 'IR6', 'A101', 'Donald Trump', '25jun1859');
+insert into acheived values('ID7', 'IR7', 'A101', 'K A Paul', '15jul1812');
+insert into acheived values('ID7', 'IR8', 'A101', 'Modi', '25jun1812');
+insert into acheived values('ID8', 'IR7', 'A106', 'Ambani', '5nov1905');
+insert into acheived values('ID8', 'IR8', 'A106', 'Bill Gates', '5dec1905');
+insert into acheived values('ID8', 'IR8', 'A101', 'president of Russia', '5dec1905');
+
+select Invention_Id,count(Invention_Id) from Invent group by (Invention_Id) having count(Invention_Id)>1
+select Inventor_Id,sum(prize_money) from acheived natural join award group by (Inventor_Id) 
+select * from invention order by Invention_year
+select * from Inventor order by Date_of_birth
+select Inventor_Id,sum(prize_money) from acheived natural join award group by (Inventor_Id) order by sum(prize_money);
+select * from Inventor where nationality='India' union select * from Inventor where nationality='Russian'
+select Invention_id,Inventor_id from given intersect select Invention_id,Inventor_id from Acheived;
+select Inventor_id,Fname,Lname from Inventor where Inventor_Id in (select Inventor_id from acheived)
+select Invention_id,Invention_Name from Invention where Invention_Id not in (select Invention_id from given); 
+select Inventor_id,sum(prize_money) from acheived natural join award group by (Inventor_Id) having (sum(prize_money) >= all (select sum(prize_money) from acheived natural join award group by (Inventor_Id)))
+select distinct(Inventor_Id,field_Id) from Invent full outer join Invention on invent.Invention_id=Invention.Invention_id where Inventor_id='IR1';
+select distinct(Inventor_Id,field_Id) from Invent full outer join Invention on invent.Invention_id=Invention.Invention_id
+select distinct(Inventor_Id,field_Id) from Invent full outer join Invention on invent.Invention_id=Invention.Invention_id where field_id='f2';
+select invention_name,Field_name from Invention,field where Invention.Field_Id = field.Field_id;
+select Invention_name from invention where Invention_year between 1850 and 1900
+select Invention_name from invention where Invention_year Not between 1850 and 1900
+select concat(fname,' ',lname) as Inventor_Name from Inventor where (to_char(Date_Of_Birth,'mon')='aug') or (to_char(Date_Of_Birth,'mon')='may') ;
+select lower(concat(fname,' ',lname)) as Inventor_Name from Inventor where (to_char(Date_Of_Birth,'mon')='aug') or (to_char(Date_Of_Birth,'mon')='may'); 
+select fname from Inventor where fname like 'C%'
+select concat(fname,' ',lname) as Inventor_Name from Inventor where extract (month from date_of_birth) = 7; 
+select fname from inventor where (fname like 'B%' and Inventor_id in (select inventor_id from acheived,award where (acheived.award_id=award.award_id and award_name like 'A%')));
+update award set prize_money=prize_money+100000;
+select invention_id,inventor_id from acheived group by Invention_id,inventor_id having count(award_id)>=1 except (select invention_id,inventor_id from acheived join award using (award_id) where award_name='Acharya');
+select inventor_name from invention where extract (year from date_of_birth)=1860 and exists (select inventor_name from invent join inventor join invention on invent.invention_id=invention.invention_id and invent.inventor_id=inventor.inventor_id and invention_year=1860) 
+select concat(fname,' ',lname) as Inventor_Name from inventor where (extract (year from date_of_birth)=1800) and  exists (select concat(fname,' ',lname) as Inventor_Name from invent join inventor on invent.inventor_id=inventor.inventor_id join invention on invent.invention_id=invention.invention_id  and invention_year = 1860) 
+
+
